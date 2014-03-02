@@ -27,8 +27,9 @@ public class Server {
 				br = new BufferedReader(new InputStreamReader(is));
 				int ch = Integer.parseInt(br.readLine());
 				switch (ch) {
-				case 0:
+				case -1:
 					return;
+				case 0: break;
 				case 1:
 					line = br.readLine();
 					CommandLine.command(line);
@@ -39,8 +40,14 @@ public class Server {
 					break;
 				case 3:
 					BufferedImage screen = null;
+					System.out.println("COMMANDCODE DONE");
+					line = br.readLine();
+					System.out.println("WIDTH DONE" + line);
+					int width = Integer.parseInt(line);
+					int height = Integer.parseInt(br.readLine());
+					System.out.println("HEIGHT DONE");
 					try {
-						screen = Screenshot.take();
+						screen = Screenshot.take(width, height);
 					} catch (HeadlessException e) {
 					} catch (AWTException e) {
 					}

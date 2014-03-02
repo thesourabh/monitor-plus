@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Monitor+</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="default_host_name">192.168.1.2</string>
+    <string name="connect">Connect</string>
+    <string name="hint_host_name">Host Address</string>
+    <string name="default_port_number">13579</string>
+    <string name="hint_port_number">Port</string>
+    <string name="hint_enter_command">Enter Command</string>
+    <string name="button_run_command">Run</string>
+    <string name="hint_enter_program">Enter Program</string>
+    <string name="button_launch_program">Launch</string>
+    <string name="close_server">Close Server</string>
+    <string name="take_screenshot">Take Screenshot</string>
+    <string name="title_activity_splash">SplashActivity</string>
+
+</resources>
