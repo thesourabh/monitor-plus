@@ -38,6 +38,23 @@ public class Server {
 					line = br.readLine();
 					CommandLine.launch(line);
 					break;
+				case 4:
+					int pptCommand = Integer.parseInt(br.readLine());
+					switch(pptCommand) {
+					case 1:
+						PressKeys.type("p");
+						break;
+					case 2:
+						PressKeys.type("n");
+						break;
+					case 3:
+						PressKeys.function(5);
+						break;
+					case 0:
+						PressKeys.function(0);
+						break;
+					}
+					break;
 				case 3:
 					BufferedImage screen = null;
 					System.out.println("COMMANDCODE DONE");

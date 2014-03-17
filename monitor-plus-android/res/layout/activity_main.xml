@@ -7,55 +7,30 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ActMain" >
-
-    <LinearLayout
-        android:id="@+id/linServWrapper"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:weightSum="1.0" >
-
-        <EditText
-            android:id="@+id/eServName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.8"
-            android:hint="@string/hint_host_name"
-            android:text="@string/default_host_name" >
-        </EditText>
-
-        <EditText
-            android:id="@+id/etServPort"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.2"
-            android:hint="@string/hint_port_number"
-            android:inputType="number"
-            android:text="@string/default_port_number" />
-    </LinearLayout>
+    tools:context=".MainActivity" >
 
     <LinearLayout
         android:id="@+id/linRunCommand"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/linServWrapper"
         android:weightSum="1.0" >
 
         <EditText
             android:id="@+id/etCommand"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_weight="0.8"
+            android:layout_weight="0.9"
             android:hint="@string/hint_enter_command" >
         </EditText>
 
         <Button
             android:id="@+id/btnRunCommand"
-            style="@style/GeneralButtonStyle"
-            android:layout_weight="0.2"
+            style="@style/btnStyleBlackpearl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
             android:text="@string/button_run_command" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -69,28 +44,35 @@
             android:id="@+id/etProgram"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_weight="0.8"
+            android:layout_weight="0.9"
             android:hint="@string/hint_enter_program" />
 
         <Button
             android:id="@+id/btnLaunchProgram"
-            style="@style/GeneralButtonStyle"
-            android:layout_weight="0.2"
+            style="@style/btnStyleBlackpearl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
             android:padding="0sp"
             android:text="@string/button_launch_program" />
+
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnCloseServer"
-        style="@style/GeneralButtonStyle"
-        android:layout_below="@+id/linLaunchProgram"
-        android:text="@string/close_server" />
+        android:id="@+id/btnLaunchPowerpoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/btnStyleBlackpearl"
+        android:layout_below="@id/linLaunchProgram"
+        android:text="@string/launch_powerpoint_activity" />
 
     <Button
         android:id="@+id/btnTakeScreenshot"
-        style="@style/GeneralButtonStyle"
-        android:layout_alignBaseline="@+id/btnCloseServer"
-        android:layout_toRightOf="@+id/btnCloseServer"
+        style="@style/btnStyleBlackpearl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linLaunchProgram"
+        android:layout_toRightOf="@id/btnLaunchPowerpoint"
         android:text="@string/take_screenshot" />
 
     <ImageView
@@ -98,7 +80,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/btnCloseServer"
+        android:layout_below="@id/btnTakeScreenshot"
         android:layout_centerVertical="true"
         android:contentDescription="@null"
         android:onClick="openCurrentScreenshotImage" />

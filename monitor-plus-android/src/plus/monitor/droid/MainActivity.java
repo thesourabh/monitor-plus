@@ -31,24 +31,23 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class ActMain extends Activity {
+public class MainActivity extends Activity {
 
 	private EditText etCommand;
 	private EditText etProgram;
-	private EditText etServName;
-	private EditText etServPort;
+	private String servName;
+	private int servPort;
 
 	private ImageView ivScreen;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.act_main);
+		setContentView(R.layout.activity_main);
 		Bundle bundle = getIntent().getExtras();
-		etServName = (EditText) findViewById(R.id.eServName);
-		etServName.setText("" + bundle.getString("host"));
-		etServPort = (EditText) findViewById(R.id.etServPort);
-		etServPort.setText("" + bundle.getInt("port"));
+		servName = bundle.getString("host");
+		servPort = bundle.getInt("port");
+		setTitle(servName + ": Monitor+");
 		etCommand = (EditText) findViewById(R.id.etCommand);
 		etProgram = (EditText) findViewById(R.id.etProgram);
 		ivScreen = (ImageView) findViewById(R.id.ivScreen);
@@ -73,12 +72,15 @@ public class ActMain extends Activity {
 				runCommand(3);
 			}
 		});
-		Button bCloseServer = (Button) findViewById(R.id.btnCloseServer);
-		bCloseServer.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				runCommand(-1);
-			}
-		});
+		findViewById(R.id.btnLaunchPowerpoint).setOnClickListener(
+				new OnClickListener() {
+					public void onClick(View v) {
+						Intent intent = new Intent(MainActivity.this, PowerpointActivity.class);
+						intent.putExtra("host", servName);
+						intent.putExtra("port", servPort);
+						startActivity(intent);
+					}
+				});
 	}
 
 	@Override
@@ -91,20 +93,17 @@ public class ActMain extends Activity {
 	private void runCommand(final int commandCode) {
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
-				String s;
-				int i;
 				Socket clientSock = null;
-				s = etServName.getText().toString();
-				i = Integer.parseInt(etServPort.getText().toString());
-				if (s.length() == 0) {
-					s = "192.168.1.2";
-					i = 13579;
+				if (servName.length() == 0) {
+					showToast("Address not received by activity. Relaunch and try again.");
+					finish();
 				}
 				PrintWriter pw = null;
 				try {
 					clientSock = new Socket();
 					try {
-						clientSock.connect(new InetSocketAddress(s, i), 8000);
+						clientSock.connect(new InetSocketAddress(servName,
+								servPort), 8000);
 					} catch (SocketTimeoutException ste) {
 						showToast("Connection timeout. Make sure the port number is correct and the host application is running.");
 						return;
@@ -136,7 +135,8 @@ public class ActMain extends Activity {
 					case 3:
 						pw.println(commandCode);
 						DisplayMetrics displaymetrics = new DisplayMetrics();
-						getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+						getWindowManager().getDefaultDisplay().getMetrics(
+								displaymetrics);
 						int height = displaymetrics.heightPixels;
 						int width = displaymetrics.widthPixels;
 						showToast("" + width + "  " + height);
@@ -224,10 +224,10 @@ public class ActMain extends Activity {
 			return false;
 		}
 	}
-	
+
 	public void openCurrentScreenshotImage(View v) {
-		String filePath = getApplication().getFilesDir()
-				.getAbsolutePath() + File.separator + "CurrentScreen.png";
+		String filePath = getApplication().getFilesDir().getAbsolutePath()
+				+ File.separator + "CurrentScreen.png";
 		File f = new File(filePath);
 		Intent intent = new Intent();
 		intent.setAction(Intent.ACTION_VIEW);

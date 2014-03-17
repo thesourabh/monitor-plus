@@ -15,6 +15,12 @@
     <string name="button_launch_program">Launch</string>
     <string name="close_server">Close Server</string>
     <string name="take_screenshot">Take Screenshot</string>
-    <string name="title_activity_splash">SplashActivity</string>
+    <string name="launch_powerpoint_activity">Powerpoint Controls</string>
+    <string name="title_activity_powerpoint">Powerpoint Controls</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="start_ppt">F5 (Run)</string>
+    <string name="close_ppt">Esc (Close)</string>
+    
 
 </resources>

@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 
 public class PressKeys {
 	private static int delay = 0;
+
 	public static void type(String text) {
 		int keyChar;
 		try {
@@ -18,21 +19,41 @@ public class PressKeys {
 				robot.keyRelease(keyChar);
 				if (Character.isUpperCase(text.charAt(i)))
 					robot.keyRelease(KeyEvent.VK_SHIFT);
-				if(delay > 0)
+				if (delay > 0)
 					Thread.sleep(delay);
 			}
 		} catch (AWTException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
+
 	public static void type(String text, int delayMilli) {
 		delay = delayMilli;
 		type(text);
+	}
+
+	public static void function(int key) {
+		try {
+			Robot robot = new Robot();
+			switch (key) {
+			case 0:
+				robot.keyPress(KeyEvent.VK_ESCAPE);
+				robot.keyRelease(KeyEvent.VK_ESCAPE);
+				break;
+			case 5:
+				robot.keyPress(KeyEvent.VK_F);
+				robot.keyPress(KeyEvent.VK_F5);
+				robot.keyRelease(KeyEvent.VK_F5);
+				robot.keyRelease(KeyEvent.VK_F);
+				break;
+			}
+			
+		} catch (AWTException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

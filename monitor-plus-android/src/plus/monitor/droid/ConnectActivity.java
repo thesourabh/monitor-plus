@@ -70,7 +70,7 @@ public class ConnectActivity extends Activity {
 					}
 					pw.println("0");
 					pw.close();
-					Intent intent = new Intent(ConnectActivity.this, ActMain.class);
+					Intent intent = new Intent(ConnectActivity.this, MainActivity.class);
 					intent.putExtra("host", host);
 					intent.putExtra("port", PORT);
 					startActivity(intent);
