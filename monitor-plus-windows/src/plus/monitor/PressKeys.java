@@ -55,5 +55,48 @@ public class PressKeys {
 			e.printStackTrace();
 		}
 	}
+	public static void arrow(int key) {
+		try {
+			Robot robot = new Robot();
+			int k = 0;
+			switch (key) {
+			case 1:
+				k = KeyEvent.VK_UP;
+				break;
+			case 2:
+				k = KeyEvent.VK_DOWN;
+				break;
+			case 3:
+				k = KeyEvent.VK_LEFT;
+				break;
+			case 4:
+				k = KeyEvent.VK_RIGHT;
+				break;
+			}
+			robot.keyPress(k);
+			robot.keyRelease(k);
+			
+		} catch (AWTException e) {
+			e.printStackTrace();
+		}		
+	}
+	public static void alt(int key) {
+		try {
+			Robot robot = new Robot();
+			int k = 0;
+			switch (key) {
+			case 1:
+				k = KeyEvent.VK_ENTER;
+				break;
+			}
+			robot.keyPress(KeyEvent.VK_ALT);
+			robot.keyPress(k);
+			robot.keyRelease(k);
+			robot.keyRelease(KeyEvent.VK_ALT);
+			
+		} catch (AWTException e) {
+			e.printStackTrace();
+		}		
+	}
 
 }

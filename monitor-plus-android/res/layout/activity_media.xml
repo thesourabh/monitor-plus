@@ -1,0 +1,62 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="0dp"
+    android:weightSum="1.0"
+    android:padding="0dp"
+    tools:context=".MediaActivity" >
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:weightSum="1.0">
+
+    <Button
+        android:id="@+id/btnStopMedia"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:text="@string/stop" />
+
+    <Button
+        android:id="@+id/btnFullScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:text="@string/full_screen" />
+
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.35"
+        android:weightSum="1.0">
+
+    <Button
+        android:id="@+id/btnRewind"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:text="@string/rewind" />
+
+    <Button
+        android:id="@+id/btnFastForward"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:text="@string/fast_forward" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnPlayPause"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.45"
+        android:text="@string/play_pause" />
+
+</LinearLayout>

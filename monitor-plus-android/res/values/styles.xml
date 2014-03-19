@@ -11,6 +11,12 @@
        <item name="android:background">@drawable/btn_black_pearl</item>
        <item name="android:padding">8dip</item>
    </style>
+    
+    <style name="btnStyle1" parent="@android:style/Widget.Button">
+       <item name="android:textSize">14sp</item>
+       <item name="android:gravity">center</item>
+       <item name="android:padding">13dip</item>
+   </style>
 
     <!--
         Base application theme, dependent on API level. This theme is replaced

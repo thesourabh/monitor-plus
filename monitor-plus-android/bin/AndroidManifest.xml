@@ -33,6 +33,16 @@
             android:name="plus.monitor.droid.PowerpointActivity"
             android:label="@string/title_activity_powerpoint" >
         </activity>
+        <activity
+            android:name="plus.monitor.droid.ScreenshotActivity"
+            android:label="@string/title_activity_screenshot"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="plus.monitor.droid.MediaActivity"
+            android:label="@string/title_activity_player" >
+        </activity>
     </application>
 
 </manifest>

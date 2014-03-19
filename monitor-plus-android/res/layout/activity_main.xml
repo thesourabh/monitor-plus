@@ -3,86 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/light1"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
-
-    <LinearLayout
-        android:id="@+id/linRunCommand"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="1.0" >
 
         <EditText
             android:id="@+id/etCommand"
-            android:layout_width="0dip"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.9"
             android:hint="@string/hint_enter_command" >
         </EditText>
 
-        <Button
-            android:id="@+id/btnRunCommand"
-            style="@style/btnStyleBlackpearl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.1"
-            android:text="@string/button_run_command" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linLaunchProgram"
+    <GridView
+        android:id="@+id/gridView1"
+        android:layout_below="@id/etCommand"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/linRunCommand"
-        android:weightSum="1.0" >
-
-        <EditText
-            android:id="@+id/etProgram"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.9"
-            android:hint="@string/hint_enter_program" />
-
-        <Button
-            android:id="@+id/btnLaunchProgram"
-            style="@style/btnStyleBlackpearl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.1"
-            android:padding="0sp"
-            android:text="@string/button_launch_program" />
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btnLaunchPowerpoint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/btnStyleBlackpearl"
-        android:layout_below="@id/linLaunchProgram"
-        android:text="@string/launch_powerpoint_activity" />
-
-    <Button
-        android:id="@+id/btnTakeScreenshot"
-        style="@style/btnStyleBlackpearl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/linLaunchProgram"
-        android:layout_toRightOf="@id/btnLaunchPowerpoint"
-        android:text="@string/take_screenshot" />
-
-    <ImageView
-        android:id="@+id/ivScreen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/btnTakeScreenshot"
-        android:layout_centerVertical="true"
-        android:contentDescription="@null"
-        android:onClick="openCurrentScreenshotImage" />
+        android:verticalSpacing="0dp"
+        android:horizontalSpacing="0dp"
+        android:numColumns="auto_fit"
+        android:columnWidth="150dp"
+        android:stretchMode="columnWidth" >
+    </GridView>
 
 </RelativeLayout>

@@ -55,6 +55,19 @@ public class Server {
 						break;
 					}
 					break;
+				case 5:
+					int mediaCommand = Integer.parseInt(br.readLine());
+					switch (mediaCommand) {
+					case 5: PressKeys.type(" ");
+					break;
+					case 0: PressKeys.type(".");
+					break;
+					case 15: PressKeys.alt(1);
+					break;
+					default: PressKeys.arrow(mediaCommand);
+					break;
+					}
+					break;
 				case 3:
 					BufferedImage screen = null;
 					System.out.println("COMMANDCODE DONE");
