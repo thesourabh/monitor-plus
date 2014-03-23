@@ -18,7 +18,6 @@ public class CMDActivity extends Activity {
 	private int servPort;
 	private EditText etCommand;
 	private TextView tvCMDOutput, tvCMDPrompt;
-	private static final int CMD_ACTIVITY = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +34,6 @@ public class CMDActivity extends Activity {
 		try {
 			runCommand(0);
 		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
 		}
 		btCommand.setOnClickListener(new OnClickListener() {
 
@@ -44,10 +41,7 @@ public class CMDActivity extends Activity {
 			public void onClick(View arg0) {
 				try {
 					runCommand(1);
-				runCommand(0);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 			}
 		});
@@ -58,8 +52,9 @@ public class CMDActivity extends Activity {
 			public void run() {
 				try {
 					Connect c = new Connect(servName, servPort);
-					BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
-					c.sendCommand(CMD_ACTIVITY);
+					BufferedReader br = new BufferedReader(
+							new InputStreamReader(c.getInputStream()));
+					c.sendCommand(Action.CMD_ACTIVITY);
 					String command;
 					if (cmdCode == 1)
 						command = etCommand.getText().toString();
@@ -67,7 +62,7 @@ public class CMDActivity extends Activity {
 						command = "cd";
 					c.println(command);
 					String cmdOutput = "", line;
-					while( (line = br.readLine()) != null)
+					while ((line = br.readLine()) != null)
 						cmdOutput += line + "\n";
 					if (cmdCode == 1)
 						displayOutput(cmdOutput);
@@ -75,15 +70,14 @@ public class CMDActivity extends Activity {
 						displayPrompt(cmdOutput);
 					c.close();
 				} catch (Exception e) {
-					Log.e("monitor+", e.getMessage() + "..." + e.getStackTrace());
+					Log.e("monitor+",
+							e.getMessage() + "..." + e.getStackTrace());
 				}
 			}
 		});
 		thread.start();
 		thread.join();
 	}
-	
-
 
 	public void displayOutput(final String output) {
 		runOnUiThread(new Runnable() {
@@ -92,6 +86,7 @@ public class CMDActivity extends Activity {
 			}
 		});
 	}
+
 	public void displayPrompt(final String output) {
 		runOnUiThread(new Runnable() {
 			public void run() {

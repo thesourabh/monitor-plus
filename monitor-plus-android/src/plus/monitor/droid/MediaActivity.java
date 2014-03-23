@@ -10,7 +10,6 @@ import android.view.View.OnClickListener;
 public class MediaActivity extends Activity {
 	private String servName;
 	private int servPort;
-	private static final int MEDIA_CONTROLS = 5;
 	private static final int VOLUME_UP = 1;
 	private static final int VOLUME_DOWN = 2;
 	private static final int REWIND = 3;
@@ -78,7 +77,7 @@ public class MediaActivity extends Activity {
 			public void run() {
 				try{
 				Connect c = new Connect(servName, servPort);
-				c.sendCommand(MEDIA_CONTROLS);
+				c.sendCommand(Action.MEDIA_CONTROLS);
 				c.println(String.valueOf(mediaCommand));
 				c.close();
 				} catch (Exception e){

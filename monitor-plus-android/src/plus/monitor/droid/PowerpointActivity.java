@@ -11,7 +11,6 @@ import android.view.View.OnClickListener;
 public class PowerpointActivity extends Activity {
 	private String servName;
 	private int servPort;
-	private static final int PPT_CONTROLS = 4;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +64,7 @@ public class PowerpointActivity extends Activity {
 			public void run() {
 				try{
 				Connect c = new Connect(servName, servPort);
-				c.sendCommand(PPT_CONTROLS);
+				c.sendCommand(Action.PPT_CONTROLS);
 				c.println(String.valueOf(pptCommand));
 				c.close();
 				} catch (Exception e){

@@ -1,21 +1,15 @@
 package plus.monitor.droid;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -31,8 +25,6 @@ public class WebcamActivity extends Activity {
 	private String servName;
 	private int servPort;
 	private RelativeLayout rlScreen;
-	private static final int WEBCAM_SNAP = 6;
-	private static final int WEBCAM_CLOSE = 66;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,23 +34,18 @@ public class WebcamActivity extends Activity {
 		servName = bundle.getString("host");
 		servPort = bundle.getInt("port");
 		rlScreen = (RelativeLayout) findViewById(R.id.rlWebcam);
-		// Bitmap screen = null;
-
-		// screen = BitmapFactory.decodeFile(getApplication().getFilesDir()
-		// .getAbsolutePath() + File.separator + "CurrentScreen.png");
-		// displayScreenshot(screen);
 		findViewById(R.id.btnTakeWebcamPic).setOnClickListener(
 				new OnClickListener() {
 					@Override
 					public void onClick(View arg0) {
-						runCommand(WEBCAM_SNAP);
+						runCommand(Action.WEBCAM_SNAP);
 					}
 				});
 		findViewById(R.id.btnCloseWebcam).setOnClickListener(
 				new OnClickListener() {
 					@Override
 					public void onClick(View arg0) {
-						runCommand(WEBCAM_CLOSE);
+						runCommand(Action.WEBCAM_CLOSE);
 					}
 				});
 
@@ -70,41 +57,31 @@ public class WebcamActivity extends Activity {
 				try {
 					Connect c = new Connect(servName, servPort);
 					c.sendCommand(snapControl);
-					if (snapControl == WEBCAM_CLOSE)
+					if (snapControl == Action.WEBCAM_CLOSE)
 						return;
 					Bitmap screen = null;
-					int contentLength = 0;
-					BufferedReader br = new BufferedReader(
-							new InputStreamReader(c.getInputStream()));
-					contentLength = Integer.parseInt(br.readLine());
-					byte b[] = new byte[contentLength];
-					InputStream is = null;
-					try {
-						is = c.getInputStream();
-					} catch (IOException e) {
-						return;
+					FileOutputStream outToFile = openFileOutput(
+							"CurrentWebcam.png", Context.MODE_PRIVATE);
+
+					int bytecount = 2048;
+					byte[] buf = new byte[bytecount];
+					InputStream IN = c.getInputStream();
+					BufferedInputStream BuffIN = new BufferedInputStream(IN,
+							bytecount);
+					int i = 0;
+					int filelength = 0;
+					while ((i = BuffIN.read(buf, 0, bytecount)) != -1) {
+						filelength += i;
+						outToFile.write(buf, 0, i);
+						outToFile.flush();
 					}
-					try {
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						int bytesRead = -1;
-						while ((bytesRead = is.read(b)) != -1) {
-							baos.write(b, 0, bytesRead);
-						}
-						baos.close();
-						c.close();
-						b = baos.toByteArray();
-					} catch (IOException e) {
-						return;
-					}
-					screen = BitmapFactory.decodeByteArray(b, 0, b.length);
-					if (screen == null) {
-						runCommand(snapControl);
-						return;
-					}
+					Log.d("monitor+", "File Length: " + filelength);
+					screen = BitmapFactory.decodeFile(getApplication()
+							.getFilesDir().getAbsolutePath()
+							+ File.separator
+							+ "CurrentWebcam.png");
 					displayScreenshot(screen);
-					// saveCurrentBitmap(screen);
 				} catch (Exception e) {
-					showToast("This isn't a video stream.");
 				}
 			}
 		});
@@ -115,7 +92,7 @@ public class WebcamActivity extends Activity {
 	@Override
 	protected void onDestroy() {
 		if (isFinishing())
-			runCommand(WEBCAM_CLOSE);
+			runCommand(Action.WEBCAM_CLOSE);
 		super.onStart();
 	}
 
@@ -140,30 +117,6 @@ public class WebcamActivity extends Activity {
 				}
 			}
 		});
-	}
-
-	@SuppressLint("WorldReadableFiles")
-	public boolean saveCurrentBitmap(Bitmap image) {
-		try {
-			FileOutputStream fos = openFileOutput("CurrentScreen.png",
-					Context.MODE_WORLD_READABLE);
-			image.compress(Bitmap.CompressFormat.PNG, 100, fos);
-			fos.close();
-			return true;
-		} catch (Exception e) {
-			Log.e("saveToInternalStorage()", e.getMessage());
-			return false;
-		}
-	}
-
-	public void openCurrentScreenshotImage(View v) {
-		String filePath = getApplication().getFilesDir().getAbsolutePath()
-				+ File.separator + "CurrentScreen.png";
-		File f = new File(filePath);
-		Intent intent = new Intent();
-		intent.setAction(Intent.ACTION_VIEW);
-		intent.setDataAndType(Uri.fromFile(f), "image/*");
-		startActivity(intent);
 	}
 
 	@Override

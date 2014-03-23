@@ -11,7 +11,6 @@ import javax.imageio.ImageIO;
 public class Server {
 	public static void main(String args[]) throws IOException {
 
-		final int CMD_ACTIVITY = 1, LAUNCH_APP = 2, SCREENSHOT_CONTROLS = 3, PPT_CONTROLS = 4, MEDIA_CONTROLS = 5, WEBCAM_SNAP = 6, WEBCAM_CLOSE = 66;
 		String line = "a";
 		ServerSocket servSock = null;
 		Socket clientSock = null;
@@ -33,7 +32,7 @@ public class Server {
 					return;
 				case 0:
 					break;
-				case CMD_ACTIVITY:
+				case Action.CMD_ACTIVITY:
 					line = br.readLine();
 					String cmdOutput = CommandLine.command(line);
 					PrintWriter pw = new PrintWriter(os, true);
@@ -41,11 +40,11 @@ public class Server {
 					pw.println(cmdOutput);
 					pw.close();
 					break;
-				case LAUNCH_APP:
+				case Action.LAUNCH_APP:
 					line = br.readLine();
 					CommandLine.launch(line);
 					break;
-				case PPT_CONTROLS:
+				case Action.PPT_CONTROLS:
 					int pptCommand = Integer.parseInt(br.readLine());
 					switch (pptCommand) {
 					case 1:
@@ -62,7 +61,7 @@ public class Server {
 						break;
 					}
 					break;
-				case MEDIA_CONTROLS:
+				case Action.MEDIA_CONTROLS:
 					int mediaCommand = Integer.parseInt(br.readLine());
 					switch (mediaCommand) {
 					case 5:
@@ -79,7 +78,7 @@ public class Server {
 						break;
 					}
 					break;
-				case WEBCAM_SNAP:
+				case Action.WEBCAM_SNAP:
 					screen = null;
 					try {
 						screen = Camera.pic();
@@ -87,10 +86,10 @@ public class Server {
 					}
 					sendPicture(os, screen);
 					break;
-				case WEBCAM_CLOSE:
+				case Action.WEBCAM_CLOSE:
 					Camera.close();
 					break;
-				case SCREENSHOT_CONTROLS:
+				case Action.SCREENSHOT_CONTROLS:
 					screen = null;
 					line = br.readLine();
 					int width = Integer.parseInt(line);
@@ -112,16 +111,21 @@ public class Server {
 	}
 
 	private static void sendPicture(OutputStream os, BufferedImage screen) throws IOException {
-		PrintWriter pw = new PrintWriter(os, true);
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		ImageIO.write(screen, "png", baos);
-		baos.close();
-		Integer contentLength = baos.size();
-		pw.println(contentLength);
-		byte[] b = baos.toByteArray();
-		os.write(b);
-		os.flush();
+		
+		int bytecount = 2048;
+        byte[] buf = new byte[bytecount];
+        File file = new File("trans.PNG");
+        ImageIO.write(screen, "PNG", file);
 
+        BufferedOutputStream BuffOUT = new BufferedOutputStream(os, bytecount);
+        FileInputStream in = new FileInputStream(file);
+
+        int i = 0;
+        while ((i = in.read(buf, 0, bytecount)) != -1) {
+            BuffOUT.write(buf, 0, i);
+            BuffOUT.flush();
+        }
+        in.close();
 	}
 
 }

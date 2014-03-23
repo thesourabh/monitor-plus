@@ -1,12 +1,9 @@
 package plus.monitor.droid;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 
 import android.net.Uri;
@@ -32,7 +29,8 @@ public class ScreenshotActivity extends Activity {
 	private String servName;
 	private int servPort;
 	private RelativeLayout rlScreen;
-	private static final int SCREENSHOT_CONTROLS = 3;
+	int height;
+	int width;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +40,10 @@ public class ScreenshotActivity extends Activity {
 		servName = bundle.getString("host");
 		servPort = bundle.getInt("port");
 		rlScreen = (RelativeLayout) findViewById(R.id.rlScreenshot);
+		DisplayMetrics displaymetrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+		height = displaymetrics.heightPixels;
+		width = displaymetrics.widthPixels;
 		Bitmap screen = null;
 
 		screen = BitmapFactory.decodeFile(getApplication().getFilesDir()
@@ -68,42 +70,31 @@ public class ScreenshotActivity extends Activity {
 			public void run() {
 				try {
 					Connect c = new Connect(servName, servPort);
-					c.sendCommand(SCREENSHOT_CONTROLS);
-					DisplayMetrics displaymetrics = new DisplayMetrics();
-					getWindowManager().getDefaultDisplay().getMetrics(
-							displaymetrics);
-					int height = displaymetrics.heightPixels;
-					int width = displaymetrics.widthPixels;
+					c.sendCommand(Action.SCREENSHOT_CONTROLS);
 					showToast("" + width + "  " + height);
 					c.println(width);
 					c.println(height);
 					Bitmap screen = null;
-					int contentLength = 0;
-					BufferedReader br = new BufferedReader(
-							new InputStreamReader(c.getInputStream()));
-					contentLength = Integer.parseInt(br.readLine());
-					byte b[] = new byte[contentLength];
-					InputStream is = null;
-					is = c.getInputStream();
-					try {
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						int bytesRead = -1;
-						while ((bytesRead = is.read(b)) != -1) {
-							baos.write(b, 0, bytesRead);
-						}
-						baos.close();
-						c.close();
-						b = baos.toByteArray();
-					} catch (IOException e) {
-						return;
+					FileOutputStream outToFile = openFileOutput(
+							"CurrentScreen.png", Context.MODE_PRIVATE);
+					int bytecount = 2048;
+					byte[] buf = new byte[bytecount];
+					InputStream IN = c.getInputStream();
+					BufferedInputStream BuffIN = new BufferedInputStream(IN,
+							bytecount);
+					int i = 0, filelength = 0;
+					while ((i = BuffIN.read(buf, 0, bytecount)) != -1) {
+						filelength += i;
+						outToFile.write(buf, 0, i);
+						outToFile.flush();
 					}
-					screen = BitmapFactory.decodeByteArray(b, 0, b.length);
-					if (screen == null) {
-						runCommand();
-						return;
-					}
+					Log.d("monitor+", "File Length: " + filelength);
+					screen = BitmapFactory.decodeFile(getApplication()
+							.getFilesDir().getAbsolutePath()
+							+ File.separator
+							+ "CurrentScreen.png");
 					displayScreenshot(screen);
-					saveCurrentBitmap(screen);
+					// saveCurrentBitmap(screen);
 				} catch (Exception e) {
 					showToast("Error occurred. Please reconnect.");
 				}

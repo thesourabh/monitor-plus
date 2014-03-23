@@ -11,7 +11,6 @@ public class LaunchActivity extends Activity {
 	private String servName;
 	private int servPort;
 	private EditText etCommand;
-	private static final int LAUNCH_ACTIVITY = 2;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +35,7 @@ public class LaunchActivity extends Activity {
 				try {
 					Connect c = new Connect(servName, servPort);
 					String command = etCommand.getText().toString();
-					c.sendCommand(LAUNCH_ACTIVITY);
+					c.sendCommand(Action.LAUNCH_APP);
 					c.println(command);
 					c.close();
 				} catch (Exception e) {
