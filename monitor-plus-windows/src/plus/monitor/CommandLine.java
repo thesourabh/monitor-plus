@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CommandLine {
-	public static void exec(List<String> args) throws IOException {
+	public static String exec(List<String> args) throws IOException {
 		ProcessBuilder pb = new ProcessBuilder(args);
 		pb.redirectErrorStream(true);
 		Process p = null;
@@ -13,13 +13,16 @@ public class CommandLine {
 			p = pb.start();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			return;
+			return e.getMessage();
 		}
-		String line;
+		String line, wholeOutput = "";
 		BufferedReader br = new BufferedReader(new InputStreamReader(
 				p.getInputStream()));
-		while ((line = br.readLine()) != null)
+		while ((line = br.readLine()) != null) {
 			System.out.println(line);
+			wholeOutput += line + "\n";
+		}
+		return wholeOutput;
 	}
 
 	public static void launch(String command) throws IOException {
@@ -27,9 +30,9 @@ public class CommandLine {
 		exec(Arrays.asList(command.split(" ")));
 	}
 
-	public static void command(String command) throws IOException {
+	public static String command(String command) throws IOException {
 		command = "cmd /c " + command;
-		exec(Arrays.asList(command.split(" ")));
+		return exec(Arrays.asList(command.split(" ")));
 	}
 
 	public static void main(String args[]) throws IOException {

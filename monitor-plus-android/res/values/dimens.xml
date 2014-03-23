@@ -5,6 +5,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="activity_large_horiz_margin">26dp</dimen>
     <dimen name="activity_large_vert_margin">26dp</dimen>
-    <dimen name="box_size">140dp</dimen>
+    <dimen name="small_padding">5dp</dimen>
+    <dimen name="box_size">150dp</dimen>
 
 </resources>

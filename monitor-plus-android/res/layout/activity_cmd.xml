@@ -1,0 +1,75 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:padding="@dimen/small_padding"
+    tools:context=".LaunchRunActivity" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/btnRunCommand" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tvCMDGuide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/cmd_guide"
+                android:textColor="#ffffffff" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="10" >
+
+                <HorizontalScrollView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6" >
+
+                <TextView
+                    android:id="@+id/tvCMDPrompt"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:singleLine="true"
+                    android:ellipsize="marquee"
+                    android:scrollHorizontally="true"
+                    android:text="@string/temp_cmd_prompt"
+                    android:textColor="#ffffffff" />
+                </HorizontalScrollView>
+
+                <EditText
+                    android:id="@+id/etCommand"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:hint="@string/hint_enter_command"
+                    android:paddingLeft="4dp"
+                    android:textColor="#ffffffff"
+                    android:textSize="14sp" >
+
+                    <requestFocus />
+                </EditText>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnRunCommand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:text="@string/button_run_command"
+        android:textColor="#ffffffff" />
+
+</RelativeLayout>

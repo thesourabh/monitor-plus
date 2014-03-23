@@ -11,7 +11,7 @@
     <string name="hint_port_number">Port</string>
     <string name="hint_enter_command">Enter Command</string>
     <string name="button_run_command">Run</string>
-    <string name="hint_enter_program">Enter Program</string>
+    <string name="hint_enter_program">App Name</string>
     <string name="button_launch_program">Launch</string>
     <string name="close_server">Close Server</string>
     <string name="take_screenshot">Take Screenshot</string>
@@ -23,12 +23,20 @@
     <string name="start_ppt">F5 (Run)</string>
     <string name="close_ppt">Esc (Close)</string>
     <string name="title_activity_screenshot">ScreenshotActivity</string>
-    <string name="title_activity_player">PlayerActivity</string>
-    <string name="launch_media_activity">Media Controls</string>
+    <string name="title_activity_player">MPC Media Controls</string>
+    <string name="launch_media_activity">MPC Media Controls</string>
     <string name="play_pause">Play / Pause</string>
     <string name="stop">Stop</string>
     <string name="fast_forward">Fast Forward</string>
     <string name="rewind">Rewind</string>
     <string name="full_screen">Full Screen</string>
+    <string name="title_activity_launch_run">Launch Program</string>
+    <string name="title_activity_cmd">CMDActivity</string>
+    <string name="temp_cmd_prompt">C:\\Users\\student</string>
+    <string name="launch_guide">Enter the name of the program. If it\'s not a known program, type the full path to the executable of the application.</string>
+    <string name="cmd_guide">Enter any cmd commands.\nWarning: Be careful. Only use commands if you know what they do.</string>
+    <string name="title_activity_webcam">Webcam Snapshot</string>
+    <string name="take_webcam_snap">Take Snap</string>
+    <string name="close_webcam">Close Webcam</string>
 
 </resources>

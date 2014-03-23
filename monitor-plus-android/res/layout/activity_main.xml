@@ -2,26 +2,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/light1"
+    android:background="@drawable/light_background"
     tools:context=".MainActivity" >
-
-        <EditText
-            android:id="@+id/etCommand"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_enter_command" >
-        </EditText>
 
     <GridView
         android:id="@+id/gridView1"
-        android:layout_below="@id/etCommand"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:verticalSpacing="0dp"
         android:horizontalSpacing="0dp"
         android:numColumns="auto_fit"
-        android:columnWidth="150dp"
-        android:stretchMode="columnWidth" >
+        android:columnWidth="150dp" >
     </GridView>
 
 </RelativeLayout>

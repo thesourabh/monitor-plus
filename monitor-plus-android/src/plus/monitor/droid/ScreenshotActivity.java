@@ -7,11 +7,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.InetSocketAddress;
-import java.net.Socket;
+import java.lang.reflect.Method;
 
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -19,18 +18,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class ScreenshotActivity extends Activity {
 	private String servName;
 	private int servPort;
-	private ImageView ivScreen;
+	private RelativeLayout rlScreen;
 	private static final int SCREENSHOT_CONTROLS = 3;
 
 	@Override
@@ -40,7 +41,7 @@ public class ScreenshotActivity extends Activity {
 		Bundle bundle = getIntent().getExtras();
 		servName = bundle.getString("host");
 		servPort = bundle.getInt("port");
-		ivScreen = (ImageView) findViewById(R.id.ivScreen);
+		rlScreen = (RelativeLayout) findViewById(R.id.rlScreenshot);
 		Bitmap screen = null;
 
 		screen = BitmapFactory.decodeFile(getApplication().getFilesDir()
@@ -65,60 +66,37 @@ public class ScreenshotActivity extends Activity {
 	private void runCommand() {
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
-				Socket clientSock = null;
-				if (servName.length() == 0) {
-					finish();
-				}
-				Log.d("monitor+", "Entered runCommand");
-				PrintWriter pw = null;
 				try {
-					clientSock = new Socket();
-					try {
-						clientSock.connect(new InetSocketAddress(servName,
-								servPort), 8000);
-					} catch (Exception e) {
-						Log.d("monitor+", "Error in connecting socket");
-						return;
-					}
-					try {
-						pw = new PrintWriter(clientSock.getOutputStream(), true);
-					} catch (IOException ioe) {
-						Log.d("monitor+", "Error in setting printwriter");
-						return;
-					}
-					pw.println(SCREENSHOT_CONTROLS);
+					Connect c = new Connect(servName, servPort);
+					c.sendCommand(SCREENSHOT_CONTROLS);
 					DisplayMetrics displaymetrics = new DisplayMetrics();
 					getWindowManager().getDefaultDisplay().getMetrics(
 							displaymetrics);
-					int height = displaymetrics.heightPixels - 100;
+					int height = displaymetrics.heightPixels;
 					int width = displaymetrics.widthPixels;
 					showToast("" + width + "  " + height);
-					pw.println(width);
-					pw.println(height);
+					c.println(width);
+					c.println(height);
 					Bitmap screen = null;
 					int contentLength = 0;
-					try {
-						BufferedReader br = new BufferedReader(
-								new InputStreamReader(clientSock
-										.getInputStream()));
-						contentLength = Integer.parseInt(br.readLine());
-					} catch (IOException e1) {
-					}
+					BufferedReader br = new BufferedReader(
+							new InputStreamReader(c.getInputStream()));
+					contentLength = Integer.parseInt(br.readLine());
 					byte b[] = new byte[contentLength];
 					InputStream is = null;
+					is = c.getInputStream();
 					try {
-						is = clientSock.getInputStream();
+						ByteArrayOutputStream baos = new ByteArrayOutputStream();
+						int bytesRead = -1;
+						while ((bytesRead = is.read(b)) != -1) {
+							baos.write(b, 0, bytesRead);
+						}
+						baos.close();
+						c.close();
+						b = baos.toByteArray();
 					} catch (IOException e) {
+						return;
 					}
-					ByteArrayOutputStream baos = new ByteArrayOutputStream();
-					int bytesRead = -1;
-					while ((bytesRead = is.read(b)) != -1) {
-						baos.write(b, 0, bytesRead);
-					}
-					baos.close();
-					b = baos.toByteArray();
-					Log.d("com.remote.pc", "byte length: " + b.length
-							+ ".. content length: " + contentLength);
 					screen = BitmapFactory.decodeByteArray(b, 0, b.length);
 					if (screen == null) {
 						runCommand();
@@ -126,17 +104,8 @@ public class ScreenshotActivity extends Activity {
 					}
 					displayScreenshot(screen);
 					saveCurrentBitmap(screen);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} finally {
-					if (pw != null)
-						pw.close();
-					try {
-						if (clientSock != null)
-							clientSock.close();
-					} catch (IOException e) {
-					}
+				} catch (Exception e) {
+					showToast("Error occurred. Please reconnect.");
 				}
 			}
 		});
@@ -144,10 +113,25 @@ public class ScreenshotActivity extends Activity {
 		thread.start();
 	}
 
-	public void displayScreenshot(final Bitmap pic) {
+	public void displayScreenshot(final Bitmap screen) {
 		runOnUiThread(new Runnable() {
 			public void run() {
-				ivScreen.setImageBitmap(pic);
+				BitmapDrawable bdScreen = new BitmapDrawable(getResources(),
+						screen);
+				Log.d("monitor+", "Version: " + Build.VERSION.SDK_INT);
+				if (Build.VERSION.SDK_INT < 16)
+					rlScreen.setBackgroundDrawable(bdScreen);
+				else {
+					try {
+						Method setBackground = RelativeLayout.class.getMethod(
+								"setBackground", Drawable.class);
+						setBackground.invoke(rlScreen, bdScreen);
+					} catch (Exception e) {
+						Log.i("monitor+", "nosuchmethod");
+						e.printStackTrace();
+					}
+
+				}
 			}
 		});
 	}

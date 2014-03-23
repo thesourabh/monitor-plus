@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
     <TextView
         android:id="@+id/tvGridMenu"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="@dimen/box_size"
+        android:layout_height="@dimen/box_size"
+        android:padding="@dimen/activity_horizontal_margin"
         android:gravity="center" />
 
-</LinearLayout>
+</RelativeLayout>

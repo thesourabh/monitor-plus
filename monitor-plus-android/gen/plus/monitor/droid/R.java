@@ -9,39 +9,6 @@ package plus.monitor.droid;
 
 public final class R {
     public static final class attr {
-        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
-"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int exampleColor=0x7f010002;
-        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
-Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
-in (inches), mm (millimeters).
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int exampleDimension=0x7f010001;
-        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
-or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
-"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
-         */
-        public static final int exampleDrawable=0x7f010003;
-        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int exampleString=0x7f010000;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -54,49 +21,67 @@ containing a value of this type.
         public static final int activity_large_horiz_margin=0x7f040002;
         public static final int activity_large_vert_margin=0x7f040003;
         public static final int activity_vertical_margin=0x7f040001;
-        public static final int box_size=0x7f040004;
+        public static final int box_size=0x7f040005;
+        public static final int small_padding=0x7f040004;
     }
     public static final class drawable {
         public static final int background=0x7f020000;
         public static final int btn_black_pearl=0x7f020001;
         public static final int dimflare=0x7f020002;
         public static final int ic_launcher=0x7f020003;
-        public static final int light1=0x7f020004;
+        public static final int light_background=0x7f020004;
     }
     public static final class id {
-        public static final int action_settings=0x7f080011;
-        public static final int btnConnect=0x7f080002;
-        public static final int btnFastForward=0x7f080008;
-        public static final int btnFullScreen=0x7f080006;
-        public static final int btnPPTEsc=0x7f08000b;
-        public static final int btnPPTF5=0x7f08000a;
-        public static final int btnPPTNext=0x7f08000d;
-        public static final int btnPPTPrev=0x7f08000c;
-        public static final int btnPlayPause=0x7f080009;
-        public static final int btnRewind=0x7f080007;
-        public static final int btnStopMedia=0x7f080005;
-        public static final int btnTakeScreenshot=0x7f08000e;
-        public static final int etCommand=0x7f080003;
-        public static final int etServName=0x7f080001;
-        public static final int gridView1=0x7f080004;
-        public static final int ivScreen=0x7f08000f;
-        public static final int ivSplashLogo=0x7f080000;
-        public static final int tvGridMenu=0x7f080010;
+        public static final int action_settings=0x7f08001c;
+        public static final int btnCloseWebcam=0x7f08001a;
+        public static final int btnConnect=0x7f080007;
+        public static final int btnFastForward=0x7f08000f;
+        public static final int btnFullScreen=0x7f08000d;
+        public static final int btnLaunch=0x7f08000a;
+        public static final int btnPPTEsc=0x7f080012;
+        public static final int btnPPTF5=0x7f080011;
+        public static final int btnPPTNext=0x7f080014;
+        public static final int btnPPTPrev=0x7f080013;
+        public static final int btnPlayPause=0x7f080010;
+        public static final int btnRewind=0x7f08000e;
+        public static final int btnRunCommand=0x7f080001;
+        public static final int btnStopMedia=0x7f08000c;
+        public static final int btnTakeScreenshot=0x7f080016;
+        public static final int btnTakeWebcamPic=0x7f080019;
+        public static final int etCommand=0x7f080004;
+        public static final int etProgram=0x7f080009;
+        public static final int etServName=0x7f080006;
+        public static final int gridView1=0x7f08000b;
+        public static final int ivScreen=0x7f080017;
+        public static final int ivSplashLogo=0x7f080005;
+        public static final int rlScreenshot=0x7f080015;
+        public static final int rlWebcam=0x7f080018;
+        public static final int scrollView1=0x7f080000;
+        public static final int tvCMDGuide=0x7f080002;
+        public static final int tvCMDPrompt=0x7f080003;
+        public static final int tvGridMenu=0x7f08001b;
+        public static final int tvLaunchGuide=0x7f080008;
     }
     public static final class layout {
-        public static final int activity_connect=0x7f030000;
-        public static final int activity_main=0x7f030001;
-        public static final int activity_media=0x7f030002;
-        public static final int activity_powerpoint=0x7f030003;
-        public static final int activity_screenshot=0x7f030004;
-        public static final int grid_row=0x7f030005;
+        public static final int activity_cmd=0x7f030000;
+        public static final int activity_connect=0x7f030001;
+        public static final int activity_launch=0x7f030002;
+        public static final int activity_main=0x7f030003;
+        public static final int activity_media=0x7f030004;
+        public static final int activity_powerpoint=0x7f030005;
+        public static final int activity_screenshot=0x7f030006;
+        public static final int activity_webcam=0x7f030007;
+        public static final int grid_row=0x7f030008;
     }
     public static final class menu {
-        public static final int act_main=0x7f070000;
-        public static final int player=0x7f070001;
-        public static final int powerpoint=0x7f070002;
-        public static final int screenshot=0x7f070003;
-        public static final int splash=0x7f070004;
+        public static final int cmd=0x7f070000;
+        public static final int launch_run=0x7f070001;
+        public static final int main=0x7f070002;
+        public static final int player=0x7f070003;
+        public static final int powerpoint=0x7f070004;
+        public static final int screenshot=0x7f070005;
+        public static final int splash=0x7f070006;
+        public static final int webcam=0x7f070007;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
@@ -105,6 +90,8 @@ containing a value of this type.
         public static final int button_run_command=0x7f050009;
         public static final int close_ppt=0x7f050014;
         public static final int close_server=0x7f05000c;
+        public static final int close_webcam=0x7f050024;
+        public static final int cmd_guide=0x7f050021;
         public static final int connect=0x7f050004;
         public static final int default_host_name=0x7f050003;
         public static final int default_port_number=0x7f050006;
@@ -115,6 +102,7 @@ containing a value of this type.
         public static final int hint_enter_program=0x7f05000a;
         public static final int hint_host_name=0x7f050005;
         public static final int hint_port_number=0x7f050007;
+        public static final int launch_guide=0x7f050020;
         public static final int launch_media_activity=0x7f050017;
         public static final int launch_powerpoint_activity=0x7f05000f;
         public static final int launch_screenshot_activity=0x7f05000e;
@@ -125,9 +113,14 @@ containing a value of this type.
         public static final int start_ppt=0x7f050013;
         public static final int stop=0x7f050019;
         public static final int take_screenshot=0x7f05000d;
+        public static final int take_webcam_snap=0x7f050023;
+        public static final int temp_cmd_prompt=0x7f05001f;
+        public static final int title_activity_cmd=0x7f05001e;
+        public static final int title_activity_launch_run=0x7f05001d;
         public static final int title_activity_player=0x7f050016;
         public static final int title_activity_powerpoint=0x7f050010;
         public static final int title_activity_screenshot=0x7f050015;
+        public static final int title_activity_webcam=0x7f050022;
     }
     public static final class style {
         /** 
@@ -160,82 +153,4 @@ containing a value of this type.
         public static final int btnStyle1=0x7f060001;
         public static final int btnStyleBlackpearl=0x7f060000;
     }
-    public static final class styleable {
-        /** Attributes that can be used with a GridMenuAdapter.
-           <p>Includes the following attributes:</p>
-           <table>
-           <colgroup align="left" />
-           <colgroup align="left" />
-           <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #GridMenuAdapter_exampleColor plus.monitor.droid:exampleColor}</code></td><td></td></tr>
-           <tr><td><code>{@link #GridMenuAdapter_exampleDimension plus.monitor.droid:exampleDimension}</code></td><td></td></tr>
-           <tr><td><code>{@link #GridMenuAdapter_exampleDrawable plus.monitor.droid:exampleDrawable}</code></td><td></td></tr>
-           <tr><td><code>{@link #GridMenuAdapter_exampleString plus.monitor.droid:exampleString}</code></td><td></td></tr>
-           </table>
-           @see #GridMenuAdapter_exampleColor
-           @see #GridMenuAdapter_exampleDimension
-           @see #GridMenuAdapter_exampleDrawable
-           @see #GridMenuAdapter_exampleString
-         */
-        public static final int[] GridMenuAdapter = {
-            0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003
-        };
-        /**
-          <p>This symbol is the offset where the {@link plus.monitor.droid.R.attr#exampleColor}
-          attribute's value can be found in the {@link #GridMenuAdapter} array.
-
-
-          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
-"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name plus.monitor.droid:exampleColor
-        */
-        public static final int GridMenuAdapter_exampleColor = 2;
-        /**
-          <p>This symbol is the offset where the {@link plus.monitor.droid.R.attr#exampleDimension}
-          attribute's value can be found in the {@link #GridMenuAdapter} array.
-
-
-          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
-Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
-in (inches), mm (millimeters).
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name plus.monitor.droid:exampleDimension
-        */
-        public static final int GridMenuAdapter_exampleDimension = 1;
-        /**
-          <p>This symbol is the offset where the {@link plus.monitor.droid.R.attr#exampleDrawable}
-          attribute's value can be found in the {@link #GridMenuAdapter} array.
-
-
-          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
-or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
-"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
-          @attr name plus.monitor.droid:exampleDrawable
-        */
-        public static final int GridMenuAdapter_exampleDrawable = 3;
-        /**
-          <p>This symbol is the offset where the {@link plus.monitor.droid.R.attr#exampleString}
-          attribute's value can be found in the {@link #GridMenuAdapter} array.
-
-
-          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name plus.monitor.droid:exampleString
-        */
-        public static final int GridMenuAdapter_exampleString = 0;
-    };
 }

@@ -1,0 +1,21 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rlWebcam"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WebcamActivity" >
+    <Button
+        android:id="@+id/btnTakeWebcamPic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.5"
+        android:text="@string/take_screenshot" />
+    <Button
+        android:id="@+id/btnCloseWebcam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.5"
+        android:layout_toRightOf="@id/btnTakeWebcamPic"
+        android:text="@string/close_webcam" />
+
+</RelativeLayout>

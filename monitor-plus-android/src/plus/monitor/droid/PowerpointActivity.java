@@ -1,13 +1,8 @@
 package plus.monitor.droid;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.InetSocketAddress;
-import java.net.Socket;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -25,7 +20,6 @@ public class PowerpointActivity extends Activity {
 		Bundle bundle = getIntent().getExtras();
 		servName = bundle.getString("host");
 		servPort = bundle.getInt("port");
-		Log.d("monitor+","Found button");
 		findViewById(R.id.btnPPTF5).setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				runCommand(3);
@@ -69,41 +63,15 @@ public class PowerpointActivity extends Activity {
 	private void runCommand(final int pptCommand) {
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
-				Socket clientSock = null;
-				if (servName.length() == 0) {
-					finish();
+				try{
+				Connect c = new Connect(servName, servPort);
+				c.sendCommand(PPT_CONTROLS);
+				c.println(String.valueOf(pptCommand));
+				c.close();
+				} catch (Exception e){
+					return;
 				}
-				Log.d("monitor+","Entered runCommand");
-				PrintWriter pw = null;
-				try {
-					clientSock = new Socket();
-					try {
-						clientSock.connect(new InetSocketAddress(servName,
-								servPort), 8000);
-					} catch (Exception e) {
-						Log.d("monitor+","Error in connecting socket");
-						return;
-					}
-					try {
-						pw = new PrintWriter(clientSock.getOutputStream(), true);
-					} catch (IOException ioe) {
-						Log.d("monitor+","Error in printwriter declaration");
-						return;
-					}
-					pw.println(PPT_CONTROLS);
-					Log.d("monitor+","Printing PPT Controls");
-					pw.println(pptCommand);
-					Log.d("monitor+","Printing PPT Command");
-				} finally {
-					if (pw != null)
-						pw.close();
-					try {
-						if (clientSock != null)
-							clientSock.close();
-					} catch (IOException e) {
-					}
-				}
-				}
+			}
 		});
 
 		thread.start();
